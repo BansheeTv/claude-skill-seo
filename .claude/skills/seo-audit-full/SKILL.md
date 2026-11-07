@@ -1,6 +1,6 @@
 ---
 name: seo-audit-full
-description: "Audita el SEO técnico y de contenido de cualquier web publicada (pasando su URL o dominio) o del código de un proyecto, y entrega errores, advertencias y un plan de acción priorizado"
+description: "Audita el SEO técnico y de contenido de cualquier web publicada (pasando su URL o dominio) o del código de un proyecto, y entrega errores, advertencias y un plan de acción priorizado. En modo profundo compara cada página con el top 5 de Google y dice qué hacer para subir posiciones"
 ---
 
 # Auditoría SEO completa (código o web publicada)
@@ -21,6 +21,10 @@ Argumentos de la invocación (en Claude Code): $ARGUMENTS
 - Si no hay ni URL ni código, pide al usuario la URL de la web que quiere auditar. No hagas nada más hasta tenerla.
 
 Indica el modo elegido en la primera línea de tu respuesta.
+
+### Modo profundo (posicionamiento frente a la competencia)
+
+Si la invocación incluye la palabra **`profundo`** (por ejemplo `/seo-audit-full https://ejemplo.com profundo`), o el usuario pide explícitamente un análisis de competencia, de posicionamiento o "qué hacer para subir en Google", haz primero la auditoría técnica normal (Fases 1–3) y después la **Fase 4 — Auditoría profunda de posicionamiento**. Requiere poder buscar en la web y leer páginas; si no puedes, dilo y entrega solo la auditoría técnica.
 
 ---
 
@@ -358,3 +362,95 @@ Entrega el informe en Markdown con **exactamente** esta estructura. Cada hallazg
 - Al terminar:
   - **Modo Código**: pregunta si quieres que aplique automáticamente las correcciones del 📋 Listado de Acción Priorizada, empezando por las de prioridad alta.
   - **Modo URL**: ofrece generar el código corregido (etiquetas `<title>`/`<meta>`, bloques JSON-LD listos para pegar, `robots.txt`) o aplicar los cambios si el usuario comparte el código del sitio.
+
+---
+
+## Fase 4 — Auditoría profunda de posicionamiento (solo en modo profundo)
+
+Objetivo: decirle al usuario **qué tiene que hacer en cada página para ganar posiciones**, comparándola con quien ya está arriba en Google. Esto es lo que ninguna herramienta de reglas detecta, así que hazlo con criterio editorial, no con checklists.
+
+### 4.0 Preparación
+
+1. **Elige las páginas** (máximo 5 salvo que el usuario pida más): la home y las páginas con más intención comercial o de tráfico (servicios, categorías, productos estrella, artículos principales). Si el usuario indica páginas concretas, usa esas.
+2. **Determina la keyword objetivo** de cada página a partir de su title, H1 y contenido. Escríbela y márcala como **supuesta**; si el usuario te da las keywords, usa las suyas.
+3. **Analiza la SERP**: busca cada keyword en la web (en el idioma y país de la página) y lee el contenido de los **5 primeros resultados orgánicos**. Si alguno es un marketplace, directorio o red social que no compite en contenido, anótalo y usa el siguiente resultado. Anota también los bloques visibles: fragmento destacado, "Otras preguntas de los usuarios", vídeos, mapa local, carruseles de productos.
+4. Si no consigues leer la SERP o las páginas de la competencia, dilo y basa el análisis solo en lo que hayas podido verificar.
+
+### 4.1 Gap de contenido
+Lista los subtemas, datos, comparativas y preguntas que cubren **al menos 2 de los 5** competidores y la página del usuario no. Ordénalos por cuántos competidores los tratan. Para cada uno, di dónde encajaría en la página (bajo qué H2).
+
+### 4.2 Intención de búsqueda
+Clasifica la intención dominante de la SERP (informativa, comercial/comparativa, transaccional, navegacional o local) y el tipo de página que gana (guía, listado "mejores X", ficha de producto, categoría, herramienta, landing local). Si la página del usuario es de otro tipo, márcalo como **❌ desajuste de intención** y explica qué página habría que crear o cómo reconvertir la actual. Es el fallo que más limita el posicionamiento: va primero.
+
+### 4.3 Formato ganador
+Compara el formato del top 5 con el de la página: extensión aproximada, uso de tablas, listas, imágenes propias, vídeo, comparativas, calculadoras o herramientas, índice de contenidos, FAQ. Indica qué elementos comparten la mayoría de los ganadores y faltan en la página.
+
+### 4.4 Ganancia de información
+Responde con honestidad: **¿qué aporta esta página que no tenga ninguno de los 5 primeros?** Si la respuesta es "nada", dilo y propone 2–3 ángulos únicos concretos y viables para ese negocio: datos propios, pruebas o casos reales, experiencia de primera mano, fotos originales, plantillas, herramientas interactivas, opiniones de expertos, comparativas con criterio propio.
+
+### 4.5 Preguntas reales de los usuarios
+Recoge las preguntas de "Otras preguntas de los usuarios", de las búsquedas relacionadas y, si puedes, de foros (Reddit, foros del sector). Indica cuáles no responde la página y propone dónde responderlas (sección FAQ o dentro del H2 correspondiente).
+
+### 4.6 Oportunidad de fragmento destacado
+Si la SERP muestra un fragmento destacado (o la keyword es una pregunta), escribe la respuesta lista para pegar: un H2 con la pregunta y debajo un párrafo de **40–60 palabras** (o una lista/tabla, si ese es el formato del fragmento actual) que la responda directamente. Indica qué formato tiene el fragmento que hoy ocupa esa posición.
+
+### 4.7 Title y description que ganan el clic
+Compara el title y la description de la página con los del top 5 tal como aparecen en la SERP. Propón **2 alternativas** de title (30–60 caracteres, con el número exacto) y una description (70–160 caracteres) que destaquen frente a ellos sin hacer clickbait: año, número concreto, beneficio, diferencia frente a la competencia.
+
+### 4.8 Enlaces internos que faltan
+Usando todas las páginas rastreadas, detecta frases de una página que hablan del tema de otra página del sitio **sin enlazarla**. Para cada oportunidad da: página de origen, la frase exacta, el texto de enlace propuesto y la página de destino. Prioriza los enlaces hacia las páginas analizadas en esta fase. Señala también las páginas huérfanas (sin enlaces internos entrantes) que hayas detectado.
+
+### 4.9 Mapa de autoridad temática
+A partir de lo que cubre la competencia y las búsquedas relacionadas, enumera los subtemas del nicho que la web **no cubre**. Propón un plan de contenidos agrupado en clusters: página pilar → artículos satélite, con la keyword supuesta de cada uno, el tipo de contenido y cómo enlazarlos entre sí. Máximo 10 piezas, ordenadas por cercanía a lo que ya tiene la web.
+
+### 4.10 E-E-A-T frente a la competencia
+Compara la página con los ganadores en señales de confianza: autor identificado con biografía, fecha de publicación y de actualización, experiencia propia demostrada, fuentes citadas, datos originales, página "Sobre nosotros" y contacto, opiniones o casos reales. Indica qué tienen ellos y le falta a la página.
+
+### 4.11 Frescura
+Detecta datos, años, precios, versiones o productos desactualizados en la página y compáralos con la fecha de actualización de la competencia. Lista qué actualizar exactamente.
+
+### 4.12 Reglas del modo profundo
+- **No inventes métricas**: no tienes volúmenes de búsqueda, dificultad de keyword ni datos de tráfico. No los estimes con cifras. Habla de prioridad (alta, media, baja) razonada a partir de la SERP. Si el usuario tiene Search Console conectado o te da sus datos, úsalos y añade las páginas en posiciones 8–20 como "a un empujón del top 5".
+- **Cita a la competencia por URL** cuando digas que "ellos cubren X". Resume con tus palabras; no copies su texto.
+- Sé específico: "añade una tabla comparando A, B y C con precio y garantía bajo el H2 *Cuál elegir*" es útil; "mejora el contenido" no lo es.
+
+### 4.13 Formato de salida del modo profundo
+
+Añade al informe, después del 📋 Listado de Acción Priorizada:
+
+```markdown
+## 🎯 Plan de posicionamiento
+
+### <URL de la página> — keyword supuesta: "<keyword>"
+
+**Intención de la SERP:** <tipo> · **Tipo de página que gana:** <tipo> · **Encaje:** ✅ / ❌
+**Competidores analizados:** <5 URLs>
+
+| Punto | Diagnóstico | Qué hacer |
+|-------|-------------|-----------|
+| Gap de contenido | ... | ... |
+| Formato ganador | ... | ... |
+| Ganancia de información | ... | ... |
+| Preguntas sin responder | ... | ... |
+| Fragmento destacado | ... | <respuesta lista para pegar> |
+| Title / description | Actual: "..." (N car.) | Propuesta: "..." (N car.) |
+| E-E-A-T | ... | ... |
+| Frescura | ... | ... |
+
+(repetir por cada página)
+
+## 🔗 Enlaces internos que faltan
+
+| Desde | Frase | Texto del enlace | Hacia |
+|-------|-------|------------------|-------|
+
+## 🧭 Mapa de autoridad temática
+
+- **Pilar:** <tema> → satélites: <pieza 1>, <pieza 2>, ...
+
+## 🚀 Top 5 acciones para subir posiciones
+
+1. <la acción con más impacto, en qué página y por qué>
+```
+
+Termina ofreciendo redactar las secciones nuevas, los títulos propuestos o los artículos del mapa temático.

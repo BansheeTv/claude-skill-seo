@@ -1,6 +1,6 @@
 {
   "name": "claude-skill-seo",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Skill para Claude Code que audita el SEO técnico y de contenido de cualquier web (por URL) o del código de un proyecto (title, description, H1-H3, alt, Schema.org JSON-LD).",
   "bin": "./scripts/install.js",
   "files": [

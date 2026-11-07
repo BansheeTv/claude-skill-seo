@@ -7,7 +7,9 @@
 - **🌐 Modo URL** — pásale un dominio y Claude rastrea la web real: `robots.txt`, sitemap, redirecciones HTTP→HTTPS y `www`, y el HTML de cada página.
 - **💻 Modo Código** — sin URL, Claude recorre el código de tu proyecto, reconstruye el inventario de rutas y te dice en qué archivo y línea corregir cada fallo.
 
-En ambos revisa cada página como lo haría un auditor SEO: longitud de títulos y descripciones, jerarquía de encabezados, textos alternativos de imágenes y datos estructurados Schema.org.
+- **🎯 Modo profundo** — añade `profundo` y, además de la auditoría técnica, Claude compara tus páginas clave con el **top 5 de Google** y te dice qué hacer para subir posiciones.
+
+En todos revisa cada página como lo haría un auditor SEO: longitud de títulos y descripciones, jerarquía de encabezados, textos alternativos de imágenes y datos estructurados Schema.org.
 
 ---
 
@@ -25,6 +27,24 @@ En ambos revisa cada página como lo haría un auditor SEO: longitud de títulos
 | **Técnico** | `lang`, viewport, Open Graph, Twitter Card, hreflang, enlaces rotos, anclas genéricas, contenido mixto, tiempo de respuesta |
 
 Compatible con **Next.js** (App y Pages Router), **Astro**, **Nuxt/Vue**, **SvelteKit**, **Remix**, **Gatsby**, **HTML estático** y temas **WordPress/PHP**.
+
+## 🎯 Modo profundo: qué hacer para posicionar
+
+Para cada página importante, Claude busca su keyword en Google, lee los 5 primeros resultados y analiza:
+
+1. **Gap de contenido**: subtemas, datos y preguntas que cubre la competencia y tú no.
+2. **Intención de búsqueda**: si Google premia guías y tú tienes una ficha de producto (o al revés).
+3. **Formato ganador**: tablas, listas, vídeo, extensión, herramientas que comparten los ganadores.
+4. **Ganancia de información**: qué aportas que no tenga nadie del top 5, y ángulos únicos si no aportas nada.
+5. **Preguntas reales**: "Otras preguntas de los usuarios", búsquedas relacionadas y foros.
+6. **Fragmento destacado**: la respuesta de 40–60 palabras lista para pegar.
+7. **Title y description que ganan el clic** frente a los de la SERP.
+8. **Enlaces internos que faltan**: frase exacta, texto del enlace y destino.
+9. **Mapa de autoridad temática**: clusters de contenido que te faltan.
+10. **E-E-A-T** frente a la competencia.
+11. **Frescura**: datos, años y precios desactualizados.
+
+Termina con un **Top 5 de acciones para subir posiciones**. No inventa volúmenes de búsqueda ni métricas de tráfico: prioriza a partir de lo que ve en la SERP y cita las URLs de la competencia.
 
 ## 📋 Formato del informe
 
@@ -86,6 +106,12 @@ Abre Claude Code (`claude`) y lanza la skill.
 
 ```text
 /seo-audit-full https://tudominio.com
+```
+
+**Análisis de posicionamiento frente a la competencia:**
+
+```text
+/seo-audit-full https://tudominio.com profundo
 ```
 
 **Auditar el código del proyecto actual:**
