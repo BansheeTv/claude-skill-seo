@@ -1,6 +1,6 @@
 ---
 name: seo-audit-full
-description: "Analiza el SEO técnico y de contenido de todo el proyecto"
+description: "Audita el SEO técnico y de contenido de cualquier web publicada (pasando su URL o dominio) o del código de un proyecto, y entrega errores, advertencias y un plan de acción priorizado"
 ---
 
 # Auditoría SEO completa (código o web publicada)
