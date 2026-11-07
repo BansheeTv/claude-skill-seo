@@ -1,8 +1,13 @@
 # claude-skill-seo
 
-> Skill para **Claude Code** que realiza una auditoría SEO técnica y de contenido de todo tu proyecto web y te entrega un plan de acción priorizado.
+> Skill para **Claude Code** que audita el SEO técnico y de contenido de **cualquier web publicada** (con solo su URL) o del **código de tu proyecto**, y te entrega un plan de acción priorizado.
 
-`seo-audit-full` hace que Claude recorra el código de tu proyecto, reconstruya el inventario de rutas y revise cada página como lo haría un auditor SEO: longitud de títulos y descripciones, jerarquía de encabezados, textos alternativos de imágenes y datos estructurados Schema.org.
+`seo-audit-full` funciona en dos modos:
+
+- **🌐 Modo URL** — pásale un dominio y Claude rastrea la web real: `robots.txt`, sitemap, redirecciones HTTP→HTTPS y `www`, y el HTML de cada página.
+- **💻 Modo Código** — sin URL, Claude recorre el código de tu proyecto, reconstruye el inventario de rutas y te dice en qué archivo y línea corregir cada fallo.
+
+En ambos revisa cada página como lo haría un auditor SEO: longitud de títulos y descripciones, jerarquía de encabezados, textos alternativos de imágenes y datos estructurados Schema.org.
 
 ---
 
@@ -16,7 +21,8 @@
 | **Encabezados H1–H3** | Un único H1 por página, sin saltos de nivel, coherencia con el título |
 | **Imágenes** | Atributo `alt` obligatorio, `alt` genéricos o vacíos en imágenes informativas |
 | **Schema.org JSON-LD** | JSON válido, `@type` correcto, propiedades requeridas por Google, coherencia con el contenido |
-| **Técnico** | `lang`, canonical, `robots.txt`, sitemap, `noindex` accidental, Open Graph, viewport, hreflang |
+| **Indexación** | Códigos HTTP, cadenas de redirección, HTTPS, variante `www`, `robots.txt`, sitemap, `noindex` / `X-Robots-Tag`, canonical |
+| **Técnico** | `lang`, viewport, Open Graph, Twitter Card, hreflang, enlaces rotos, anclas genéricas, contenido mixto, tiempo de respuesta |
 
 Compatible con **Next.js** (App y Pages Router), **Astro**, **Nuxt/Vue**, **SvelteKit**, **Remix**, **Gatsby**, **HTML estático** y temas **WordPress/PHP**.
 
@@ -36,7 +42,7 @@ Cada hallazgo indica archivo y línea, el valor actual (con su longitud en carac
 ## ⚙️ Requisitos
 
 - [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) instalado.
-- [Node.js](https://nodejs.org/) 16 o superior (solo para el instalador `npx`).
+- [Node.js](https://nodejs.org/) 18 o superior (para el instalador `npx` y el rastreador del modo URL).
 - Git disponible en el sistema (npx lo usa para descargar el paquete desde GitHub).
 
 ## 🚀 Instalación
@@ -74,17 +80,34 @@ curl -o .claude/skills/seo-audit-full/SKILL.md \
 
 ## 🧑‍💻 Uso
 
-Abre Claude Code en tu proyecto y lanza la skill:
+Abre Claude Code (`claude`) y lanza la skill.
+
+**Auditar una web publicada** (cualquier dominio):
+
+```text
+/seo-audit-full https://tudominio.com
+```
+
+**Auditar el código del proyecto actual:**
 
 ```text
 /seo-audit-full
 ```
 
-O pídelo en lenguaje natural; Claude la cargará automáticamente:
+También puedes pedirlo en lenguaje natural: *"Haz una auditoría SEO de ejemplo.com"*.
 
-```text
-Haz una auditoría SEO completa del proyecto
-```
+### Cómo funciona el modo URL
+
+Claude guarda en un archivo temporal un rastreador Node.js sin dependencias (incluido en la skill) y lo ejecuta. El rastreador:
+
+- se identifica como `claude-skill-seo` y **respeta `robots.txt`**;
+- descubre las páginas desde el sitemap (o siguiendo enlaces internos si no hay sitemap);
+- analiza hasta 25 páginas por defecto (puedes pedir más, hasta 200);
+- devuelve un JSON con todos los datos, que Claude convierte en el informe.
+
+Si el entorno no permite ejecutar comandos con acceso a internet (por ejemplo, en el chat de claude.ai), Claude usa sus herramientas de lectura web y marca el informe como **parcial**.
+
+> Audita solo webs públicas. La skill no accede a zonas con login ni intenta sortear protecciones anti-bots.
 
 ## 📁 Estructura del repositorio
 
