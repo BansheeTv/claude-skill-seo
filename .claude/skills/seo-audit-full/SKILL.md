@@ -247,7 +247,7 @@ Aplica estos criterios a **cada página** del inventario (modo Código) o del ra
 
 ### 2.1 Etiqueta `<title>`
 
-- Indica siempre el texto final y su **número exacto de caracteres**, p. ej. `"Calculadora de cuello de botella | Marca" (41 caracteres)`.
+- Indica siempre el texto final y su **número exacto de caracteres**, p. ej. `"Zapatillas de running para mujer | Tienda" (41 caracteres)`.
 - ❌ **Crítico**: ausente, vacío, varias etiquetas `<title>`, o idéntico en varias páginas.
 - ⚠️ **Advertencia**: menos de 30 o más de 60 caracteres (riesgo de truncado en Google).
 - ✅ **Correcto**: 30–60 caracteres, único, con la palabra clave principal al inicio.
@@ -267,7 +267,7 @@ Aplica estos criterios a **cada página** del inventario (modo Código) o del ra
 - ✅ **Correcto**: un único H1 descriptivo y una estructura H2/H3 lógica.
 - Cuando haya problemas, muestra el árbol de forma compacta:
   ```
-  H1 Calculadora de cuello de botella
+  H1 Zapatillas de running para mujer
     H3 ← salto de nivel (falta H2)
   ```
 
