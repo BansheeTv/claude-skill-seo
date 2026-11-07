@@ -1,0 +1,37 @@
+{
+  "name": "claude-skill-seo",
+  "version": "1.0.0",
+  "description": "Skill para Claude Code que audita el SEO técnico y de contenido de todo un proyecto web (title, description, H1-H3, alt, Schema.org JSON-LD).",
+  "bin": "./scripts/install.js",
+  "files": [
+    "scripts/install.js",
+    ".claude/skills/seo-audit-full/SKILL.md",
+    "README.md"
+  ],
+  "scripts": {
+    "install-skill": "node ./scripts/install.js",
+    "test": "node ./scripts/install.js --help"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "seo",
+    "audit",
+    "schema.org",
+    "json-ld"
+  ],
+  "author": "BansheeTv",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BansheeTv/claude-skill-seo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BansheeTv/claude-skill-seo/issues"
+  },
+  "homepage": "https://github.com/BansheeTv/claude-skill-seo#readme",
+  "engines": {
+    "node": ">=16"
+  }
+}
